@@ -10,7 +10,7 @@ import AddToCartPopup from '../../components/AddToCartPopup';
 import ReviewsPage from "../../components/ReviewsPage";
 
 export async function getStaticPaths() {
-  // --- MOVED DATA INSIDE FUNCTION TO FIX SCOPE ERROR ---
+  // --- MOCK DATA WITH IMPROVED STYLING ---
   const mockProducts = [
     {
       _id: "1",
@@ -19,39 +19,48 @@ export async function getStaticPaths() {
       price: 49.95,
       oldPrice: 99.95,
       desc: `
-        <div style="font-family: inherit; color: #2c2c2e; line-height: 1.8;">
+        <div style="
+          font-family: inherit; 
+          color: #2c2c2e; 
+          line-height: 1.8; 
+          max-width: 1100px; 
+          margin: 60px auto; 
+          padding: 0 20px; 
+          width: 100%; 
+          box-sizing: border-box;
+        ">
           <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1c1c1e;">
             Unmatched Durability Meets Modern Design
           </h3>
-          <p style="margin-bottom: 1.5rem; font-size: 1rem; color: #555;">
+          <p style="margin-bottom: 2.5rem; font-size: 1rem; color: #555;">
             This isn't just a wallet; it's a statement. Engineered for the modern professional, the Portfolio Premium Product combines aerospace-grade materials with a sleek, minimalist profile. Whether you're closing deals in the boardroom or traveling internationally, this essential accessory ensures your cards are accessible, secure, and stylish.
           </p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 2rem;">
-            <div style="background: #fff; padding: 15px; border: 1px solid #e5e5e5; border-radius: 8px;">
-              <strong style="display: block; color: #000; margin-bottom: 5px;">🛡️ RFID Protection</strong>
-              <span style="font-size: 0.9rem; color: #666;">Advanced blocking technology prevents digital theft and keeps your data safe.</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 3rem;">
+            <div style="background: #fff; padding: 20px; border: 1px solid #e5e5e5; border-radius: 12px;">
+              <strong style="display: block; color: #000; margin-bottom: 8px; font-size: 1.1rem;">🛡️ RFID Protection</strong>
+              <span style="font-size: 0.95rem; color: #666;">Advanced blocking technology prevents digital theft and keeps your data safe.</span>
             </div>
-            <div style="background: #fff; padding: 15px; border: 1px solid #e5e5e5; border-radius: 8px;">
-              <strong style="display: block; color: #000; margin-bottom: 5px;">🪶 Ultra Lightweight</strong>
-              <span style="font-size: 0.9rem; color: #666;">Weighing less than 2oz, you'll barely feel it in your pocket.</span>
+            <div style="background: #fff; padding: 20px; border: 1px solid #e5e5e5; border-radius: 12px;">
+              <strong style="display: block; color: #000; margin-bottom: 8px; font-size: 1.1rem;">🪶 Ultra Lightweight</strong>
+              <span style="font-size: 0.95rem; color: #666;">Weighing less than 2oz, you'll barely feel it in your pocket.</span>
             </div>
-            <div style="background: #fff; padding: 15px; border: 1px solid #e5e5e5; border-radius: 8px;">
-               <strong style="display: block; color: #000; margin-bottom: 5px;">⚡ Quick Access</strong>
-              <span style="font-size: 0.9rem; color: #666;">Patented slider mechanism ejects cards instantly with a single motion.</span>
+            <div style="background: #fff; padding: 20px; border: 1px solid #e5e5e5; border-radius: 12px;">
+               <strong style="display: block; color: #000; margin-bottom: 8px; font-size: 1.1rem;">⚡ Quick Access</strong>
+              <span style="font-size: 0.95rem; color: #666;">Patented slider mechanism ejects cards instantly with a single motion.</span>
             </div>
           </div>
-          <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #1c1c1e;">Technical Specifications</h4>
-          <div style="background: #f2f2f7; padding: 20px; border-radius: 8px; border-left: 4px solid #1c1c1e;">
-            <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <li style="font-size: 0.9rem;"><strong>Material:</strong> 3K Carbon Fiber</li>
-              <li style="font-size: 0.9rem;"><strong>Capacity:</strong> 1-12 Cards</li>
-              <li style="font-size: 0.9rem;"><strong>Dimensions:</strong> 86 x 54 x 6 mm</li>
-              <li style="font-size: 0.9rem;"><strong>Warranty:</strong> Lifetime</li>
-              <li style="font-size: 0.9rem;"><strong>Weight:</strong> 45 grams</li>
-              <li style="font-size: 0.9rem;"><strong>Finish:</strong> Matte Coating</li>
+          <h4 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; color: #1c1c1e;">Technical Specifications</h4>
+          <div style="background: #f2f2f7; padding: 30px; border-radius: 12px; border-left: 4px solid #1c1c1e;">
+            <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+              <li style="font-size: 0.95rem;"><strong>Material:</strong> 3K Carbon Fiber</li>
+              <li style="font-size: 0.95rem;"><strong>Capacity:</strong> 1-12 Cards</li>
+              <li style="font-size: 0.95rem;"><strong>Dimensions:</strong> 86 x 54 x 6 mm</li>
+              <li style="font-size: 0.95rem;"><strong>Warranty:</strong> Lifetime</li>
+              <li style="font-size: 0.95rem;"><strong>Weight:</strong> 45 grams</li>
+              <li style="font-size: 0.95rem;"><strong>Finish:</strong> Matte Coating</li>
             </ul>
           </div>
-          <p style="margin-top: 1.5rem; font-style: italic; color: #888; font-size: 0.9rem;">
+          <p style="margin-top: 2rem; font-style: italic; color: #888; font-size: 0.85rem; text-align: center;">
             *Note: This is a demonstration product for portfolio purposes.
           </p>
         </div>
