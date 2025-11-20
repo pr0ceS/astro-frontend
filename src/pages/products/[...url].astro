@@ -11,7 +11,25 @@ import ReviewsPage from "../../components/ReviewsPage";
 import { urlString } from '../../utils/api';
 
 export async function getStaticPaths() {
-  const products = await fetch(`${urlString}/products`).then((res) => res.json());
+  const response = await fetch(`${urlString}/products`);
+  
+  if (!response.ok) {
+    console.error(`Error fetching products: ${response.statusText}`);
+    return [];
+  }
+
+  const data = await response.json();
+
+  let products = [];
+  
+  if (Array.isArray(data)) {
+    products = data;
+  } else if (data && Array.isArray(data.data)) {
+    products = data.data;
+  } else {
+    console.error("API did not return an array. Received:", JSON.stringify(data, null, 2));
+    return [];
+  }
 
   const filteredProducts = products.filter((product) => !product.free);
 
