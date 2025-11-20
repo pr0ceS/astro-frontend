@@ -11,51 +11,57 @@ import ReviewsPage from "../../components/ReviewsPage";
 import { urlString } from '../../utils/api';
 
 export async function getStaticPaths() {
-  const response = await fetch(`${urlString}/products`);
-  
-  if (!response.ok) {
-    console.error(`Error fetching products: ${response.statusText}`);
-    return [];
-  }
-
-  const data = await response.json();
-
-  let products = [];
-  
-  if (Array.isArray(data)) {
-    products = data;
-  } else if (data && Array.isArray(data.data)) {
-    products = data.data;
-  } else {
-    console.error("API did not return an array. Received:", JSON.stringify(data, null, 2));
-    return [];
-  }
-
-  const filteredProducts = products.filter((product) => !product.free);
-
-  const paths = filteredProducts.map((product) => ({
-    params: { url: product.url },
-    props: { 
-      _id: product._id,
-      name: product.name,
-      price: product.price,
-      desc: product.desc,
-      metaDesc: product.metaDesc,
-      oldPrice: product.oldPrice,
-      image: product.image,
-      smallDescs: product.smallDesc,
-      dropdowns: product.dropdowns,
-      reviews: product.reviews,
-      models: product.models,
-      product: product
+  try {
+    const response = await fetch(`${urlString}/products`);
+    
+    if (!response.ok) {
+      console.error(`Error fetching products: ${response.statusText}`);
+      return [];
     }
-  }));
 
-  return paths;
+    const data = await response.json();
+    
+    // Normalize data
+    let products = [];
+    if (Array.isArray(data)) {
+      products = data;
+    } else if (data && Array.isArray(data.data)) {
+      products = data.data;
+    }
+
+    const filteredProducts = products.filter((product) => !product.free);
+
+    return filteredProducts.map((product) => ({
+      params: { url: product.url },
+      props: { 
+        ...product,
+        product: product
+      }
+    }));
+
+  } catch (error) {
+    console.error("Build Error in getStaticPaths:", error);
+    return [];
+  }
 }
 
 const { url } = Astro.params;
-const { product, _id, name, price, oldPrice, image, desc, metaDesc, smallDescs, dropdowns, reviews, models } = Astro.props;
+const props = Astro.props;
+
+const product = props.product || {};
+const { 
+  name = "Product Not Found", 
+  price = 0, 
+  oldPrice = 0, 
+  image = [], 
+  desc = "", 
+  metaDesc = "", 
+  smallDesc = [],
+  dropdowns = [], 
+  reviews = [], 
+  models = [] 
+} = props;
+
 const title = name;
 const description = metaDesc;
 ---
@@ -69,7 +75,7 @@ const description = metaDesc;
           <a href="/products">Back to all products</a>
           <h1>{name}</h1>
         </div>
-        <SmallDesc smallDescs={smallDescs} client:load />
+        <SmallDesc smallDescs={smallDesc} client:load />
         <div class="product-payment">
           <p class="currentlyviewing">
             <img
@@ -102,6 +108,5 @@ const description = metaDesc;
 
 <script>
 	import { initVisit } from '../../stores/visit';
-	
 	initVisit();
 </script>

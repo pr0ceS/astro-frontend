@@ -1,11 +1,9 @@
-
 export const getLocale = async () => {
-	try {
-		const res = await fetch('https://freeipapi.com/api/json')
 
-		const data = await res.json();
-		return data;
-	} catch (error) {
-		console.log(error);
-	}
+	return {
+		ipAddress: "127.0.0.1",
+		countryCode: "US",
+		country: "United States",
+		continentCode: "NA"
+	};
 }
